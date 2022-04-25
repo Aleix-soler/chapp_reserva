@@ -1,0 +1,35 @@
+{% extends 'default.html' %} {% load static %} {% block content %}
+<link rel="stylesheet" type="text/css" href="{% static './styles/book/list.css' %}" />
+<link href="https://fonts.googleapis.com/css2?family=Arvo:wght@700&family=Source+Sans+Pro&display=swap" rel="stylesheet">
+<script src="{% static './js/jquery-3.4.1.min.js' %}"></script>
+    <table>
+      <tr id="header">
+        <th>Localizador</th>
+        <th>Date Entry</th>
+        <th>Date Exit</th>
+        <th>Name</th>
+        <th>Phone</th>
+        <th></th>
+      </tr>
+    
+      {% for row in books %}
+      <tr>
+        <td class="click" onclick="window.location.href='/book/view/{{row.localizador}}'">{{row.localizador}}</td>
+        <td>{{row.date_entry}}</td>
+        <td>{{row.date_exit}}</td>
+        <td>{{row.name}}</td>
+        <td>{{row.phone}}</td>
+        <td><button class="button-warning" onclick="window.location.href='book/delete/{{row.localizador}}'">Delete</button></td>
+      </tr>
+      {% endfor %}
+    </table>
+{% endblock %}
+
+{% block count %}
+  <p id="book_count">Total Reservations: {{books_count}}</p>
+{% endblock %}
+
+{% block buttons %}
+  <button class="button-default" onclick="window.location.href='/book/form/1'">Add Book</button>
+  <button class="button-default" onclick="window.location.href='/book/export/csv'">Export Excel</button>
+{% endblock %}

@@ -1,0 +1,70 @@
+form{
+    display: flex;
+    flex-direction: column;
+}
+
+.form-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 65vh;
+}
+li{
+    list-style-type: none;
+    margin-left:-2vw;
+}
+
+input{
+    width: 20vw;
+    min-height: 3vh;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+label{
+    padding: 10px 0px;
+}
+
+#submit{
+    width: 100px;
+    margin: 10px 0px 0px 0px;
+}
+
+.button-default {
+    background: #2980b9;
+    border: 1px solid #2980b9;
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 16px;
+    min-height: 40px;
+    outline: 0;
+    padding: 12px 14px;
+    text-align: center;
+    text-rendering: geometricprecision;
+    text-transform: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    margin-top: 20px;
+}
+
+.button-default:hover,
+.button-default:active {
+    background-color: initial;
+    background-position: 0 0;
+    color: #2980b9;
+}
+
+.button-default:disabled{
+    background-color: grey;
+    color: white;
+}

@@ -1,0 +1,30 @@
+{% load static %}
+<html>
+    <head>
+        <title>Chapp</title>
+        <link rel="icon" href="{% static './assets/icon.jpg' %}" type="image/jpg">
+    </head>
+<body>
+
+    <link rel="stylesheet" type="text/css" href="{% static './styles/default.css' %}" />
+    <link href="https://fonts.googleapis.com/css2?family=Arvo:wght@700&family=Source+Sans+Pro&display=swap" rel="stylesheet">
+    <div class="page-header">
+        <h1><a href='/'>Chapp Reserva</a></h1>
+    </div>
+    <div class="content-container">
+        {% block content %}
+
+        {% endblock %}
+    </div>
+    <div class="count-container">
+        {% block count %}
+
+        {% endblock %}
+    </div>
+    <div class="buttons-container">
+        {% block buttons %}
+        
+        {% endblock %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+{% extends 'default.html' %}
+{% load static %}
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static './styles/book/form/firstForm.css' %}" />
+    <div class="form-container">
+        <form action='' method='POST'>
+            {% csrf_token %}
+            {{form}}
+            <input class="button-default" type="submit" name="Next"id="submit" value="Next"/>
+        </form>    
+    </div>
+    <script type="text/javascript">
+        var date_entry = document.getElementById("id_date_entry");
+        var date_exit = document.getElementById("id_date_exit");
+
+        submit.disabled = true;
+
+        date_entry.onchange = function(){
+            console.log("CHANGED->", date_entry.value)
+            checkDates();
+        }
+        
+        date_exit.onchange = function(){
+            checkDates();
+        }
+
+        function checkDates(){
+            if(date_entry.value>date_exit.value){
+                console.log("ES MES GRAN DATA ENTRADA QUE SORTIDA")
+                submit.disabled = true;
+                return;
+            }
+            console.log("ES CORRECTE")
+            let date1 = new Date(date_entry.value);
+            let date2 = new Date(date_exit.value);
+            daysDifference = date2.getDate()-date1.getDate();
+            submit.disabled = false;
+        
+            return;
+        }
+    </script>
+{% endblock %}

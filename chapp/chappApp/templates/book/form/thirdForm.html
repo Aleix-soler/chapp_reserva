@@ -1,0 +1,18 @@
+{% extends 'default.html' %}
+{% load static %}
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static './styles/book/form/thirdForm.css' %}" />
+    <div class="form-container">
+        <form action='' method='POST'>
+            {% csrf_token %}
+            {{form}}
+            <input class="button-default" type="submit" name="Next" value="Book Now"/>
+        </form>
+        {% if form.non_field_errors %}
+            <div class="alert alert-dismissible alert-danger">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <strong>Oh snap!</strong>{{form.non_field_errors}}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

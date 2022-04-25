@@ -1,0 +1,130 @@
+{% extends 'default.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static './styles/book/form/secondForm.css' %}" />
+
+    <div class="form-container">
+        <form action='' method='POST'>
+            {% csrf_token %}
+            <div id="form">
+                <div id="rooms_container">
+                    <h2>CHOOSE ROOM</h2>
+                    <div id="rooms">
+                        {{form.type_room}}
+                        <img id="room_img" src='data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs='/>
+                    </div>
+                </div>
+                <div id="price_send">
+                    <div id="price_div">
+                        <div id="div_total">
+                            <p id="total">Total:</p>
+                            {{form.price}}
+                        </div>
+                        <input type="submit" name="Next"id="submit" value="Next"/>
+                    </div>
+                </div>
+            </div>
+            <div id="no_items">
+                <p>No rooms available in this dates!</p>
+                <button type="button" onclick="window.location.href='/book/form/1'">Back</button>
+            </div>
+
+        </form>
+    </div>
+
+    <script type="text/javascript">
+        //Variables
+        let entry_data = new Date("{{entry_data}}")
+        let exit_data = new Date("{{exit_data}}")
+        var rooms_available = {{rooms_available|safe}}
+        var daysDifference = (exit_data.getTime()-entry_data.getTime())/(1000*3600*24)
+        var type_room = document.getElementById("id_type_room");
+        var rooms = document.getElementsByName("type_room")
+        var price = document.getElementById('id_price')
+        var submit = document.getElementById('submit')
+        var no_items = document.getElementById('no_items')
+        var image = document.getElementById('room_img')
+        var children = type_room.children;
+        var guests = {{guests|safe}}
+
+        //Initial
+        price.readOnly = 'readonly'
+        no_items.style.display = 'none'
+        
+        //Remove rooms from number of guests
+        for(let i=0; i<guests-1;i++){
+            type_room.removeChild(children[0])
+        }
+
+        //Check each radio Button to edit price
+        for(let i=0; i<children.length; i++){
+            let Children = children[i].children[0].children[0]
+            let childrenValue = Children.value;
+
+            switch(childrenValue){
+                case 'SINGLE':
+                    Children.addEventListener('change', function(){
+                        console.log("SINGLE")
+                        price.value = 20*daysDifference;
+                        image.src ="{% static './assets/single_room.jpg' %}"
+                    })
+                    break;
+                case 'DOUBLE':
+                    Children.addEventListener('change', function(){
+                        console.log("DOUBLE")
+                        price.value = 30*daysDifference;
+                        image.src ="{% static './assets/double_room.jpg' %}"
+                    })
+                    break;
+                case 'TRIPLE':
+                    Children.addEventListener('change', function(){
+                        console.log("TRIPLE")
+                        price.value = 40*daysDifference;
+                        image.src ="{% static './assets/triple_room.jpg' %}"
+                    })
+                    break;
+                case 'QUADRUPLE':
+                    Children.addEventListener('change', function(){
+                        console.log("QUADRUPLE")
+                        price.value = 50*daysDifference;
+                        image.src ="{% static './assets/quadruple_room.jpg' %}"
+                    })
+                    break;
+            }
+        }
+        
+        //Delete room type if no available rooms of this type
+        let pos = 0;
+
+        for(let i=guests-1; i<rooms_available.length; i++){
+            if(rooms_available[i][1]<0){
+                //console.log(rooms_available[i][0], " rooms not available -> available(",rooms_available[i][1],")")
+                type_room.removeChild(children[pos])
+
+                const noRoomsAvailable = type_room.children.length==0;
+                if(noRoomsAvailable){
+                    noRooms()
+                }
+            }
+            pos++;
+        }
+
+        function noRooms(){
+            price.style.display = 'none';
+            submit.style.display = 'none';
+            let labels = document.getElementsByTagName('label')
+            for(let j=0; j<labels.length; j++){
+                labels[j].style.display = 'none'
+                no_items.style.display = 'block'
+            }
+        }
+
+        //Console.logs
+        {% comment %} 
+        console.log("GUESTS->", guests)
+        console.log("DAYS DIFFERENCE->", daysDifference)
+        console.log("ROOMS AVAILABLE->", rooms_available)
+        console.log("ROOM->", rooms_available) 
+        {% endcomment %}
+    </script>
+{% endblock %}

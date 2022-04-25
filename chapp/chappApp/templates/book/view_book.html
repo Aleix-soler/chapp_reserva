@@ -1,0 +1,38 @@
+{% extends 'default.html' %}
+{% load static %}
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{% static './styles/book/view_book.css' %}" />
+    <h1 id="title">{{id}}</h1>
+    <div id="data-content">
+        {% for row in book %}
+        <div class="content">
+            <div class="title-column">
+                <p>Date Entry: </p>
+                <p>Date Exit: </p>
+                <p>Room Type: </p>
+                <p>Total Price: </p>
+            </div>
+            <div class="data-column">
+                <p>{{row.date_entry}}</p>
+                <p>{{row.date_exit}}</p>
+                <p>{{row.type_room}}</p>
+                <p>{{row.price}}</p>
+            </div>
+        </div>
+    
+        <div class="content">
+            <div class="title-column">
+                <p>Name: </p>
+                <p>Email: </p>
+                <p>Phone: </p>
+            </div>
+            <div class="data-column">
+                <p>{{row.name}}</p>
+                <p>{{row.email}}</p>
+                <p>{{row.phone}}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
